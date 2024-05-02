@@ -1,0 +1,43 @@
+{% extends 'main/base_layout.html' %}
+
+{% block title %}
+  Todo Task Detail
+{% endblock %}
+
+{% block main-content %}
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <a href="{% url 'bookstore:book-list' %}" class="btn btn-secondary mb-3">Back to Book List</a>
+
+      <div class="card">
+        <div class="card-header">
+          <h2 class="text-center">Book Details</h2>
+        </div>
+        <div class="card-body">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Genre</th>
+                <th>Publication Year</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{ book.id }}</td>
+                <td>{{ book.title }}</td>
+                <td>{{ book.author }}</td>
+                <td>{{ book.genre }}</td>
+                <td>{{ book.publication_year }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
