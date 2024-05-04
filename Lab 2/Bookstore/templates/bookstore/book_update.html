@@ -1,0 +1,43 @@
+{% extends 'main/base_layout.html' %}
+
+{% block title %}
+  Update Book - {{ book.title }}
+{% endblock %}
+
+{% block main-content %}
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="text-center">Update Book - {{ book.title }}</h2>
+        </div>
+        <div class="card-body">
+          <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="title">Title:</label>
+              <input type="text" class="form-control" id="title" name="title" value="{{ book.title }}" required>
+            </div>
+            <div class="form-group">
+              <label for="desc">Description:</label>
+              <textarea class="form-control" id="desc" name="desc" rows="3" required>{{ book.desc }}</textarea>
+            </div>
+            <div class="form-group">
+              <label for="rate">Rate:</label>
+              <input type="number" class="form-control" id="rate" name="rate" step="0.01" value="{{ book.rate }}" required>
+            </div>
+            <div class="form-group">
+              <label for="views">Views:</label>
+              <input type="number" class="form-control" id="views" name="views" value="{{ book.views }}" required>
+            </div>
+            <div class="text-center mt-2">
+              <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
