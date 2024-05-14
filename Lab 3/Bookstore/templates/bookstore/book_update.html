@@ -1,0 +1,77 @@
+{% extends 'main/base_layout.html' %}
+
+{% block title %}
+  Update Book - {{ book.title }}
+{% endblock %}
+
+{% block main-content %}
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="text-center">Update Book - {{ book.title }}</h2>
+        </div>
+        <div class="card-body">
+          <form method="post">
+            {% csrf_token %}
+            {% if form.errors %}
+            <div class="alert alert-danger" role="alert">
+              <strong>Error!</strong> Please correct the following errors:
+              <ul>
+                {% for field, errors in form.errors.items %}
+                {% for error in errors %}
+                <li>{{ field|title }}: {{ error }}</li>
+                {% endfor %}
+                {% endfor %}
+              </ul>
+            </div>
+            {% endif %}
+            <div class="form-group">
+              <label for="title">Title:</label>
+              <input type="text" class="form-control" id="title" name="title" value="{{ form.title.value }}" required>
+              {% if form.title.errors %}
+              <ul class="errors">
+                {% for error in form.title.errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+              </ul>
+              {% endif %}
+            </div>
+            <div class="form-group">
+              <label for="author">Author:</label>
+              <input type="text" class="form-control" id="author" name="author" value="{{ form.author.value }}" required>
+              {% if form.author.errors %}
+              <ul class="errors">
+                {% for error in form.author.errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+              </ul>
+              {% endif %}
+            </div>
+            <div class="form-group">
+              <label for="categories">Categories:</label>
+              <select class="form-control" id="categories" name="categories" multiple required>
+                {% for category in categories %}
+                  <option value="{{ category.id }}" {% if category.id in form.fields.categories.initial %}selected{% endif %}>{{ category.name }}</option>
+                {% endfor %}
+              </select>
+              {% if form.categories.errors %}
+              <ul class="errors">
+                {% for error in form.categories.errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+              </ul>
+              {% endif %}
+            </div>
+            <input type="hidden" id="user" name="user" value="{{ book.user.id }}">
+            <div class="text-center mt-2">
+              <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
